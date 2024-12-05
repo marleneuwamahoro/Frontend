@@ -10,7 +10,7 @@ const RoleListPage = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('http://localhost:8083/roles'); // Assuming your API endpoint is /api/roles
+        const response = await axios.get('https://backendapprication-8eeb6fd4c701.herokuapp.com/roles'); // Assuming your API endpoint is /api/roles
         setRoles(response.data);
         setLoading(false);
       } catch (error) {
@@ -34,129 +34,174 @@ const RoleListPage = () => {
     <div style={styles.container}>
       {/* Header Section */}
       <header style={styles.header}>
-        <h1 style={styles.headerText}>Role List</h1>
+        <div style={styles.headerContent}>
+          <h1 style={styles.headerText}>Role Management</h1>
+        </div>
       </header>
 
-      {/* Back to Dashboard Button */}
-      <div style={styles.backButtonContainer}>
-        <a
-          href="/AdminDaschboard"
-          style={styles.backButton}
-          onMouseEnter={(e) => (e.target.style.background = styles.backButtonHover.background)}
-          onMouseLeave={(e) => (e.target.style.background = "#0056b3")}
-        >
+      {/* Button Group */}
+      <div style={styles.buttonGroup}>
+        <a href="/AdminDaschboard" style={styles.buttonBack}>
           Back to Dashboard
         </a>
-        <a
-          href="/AddRole"
-          style={styles.button}
-          onMouseEnter={(e) => (e.target.style.background = styles.buttonHover.background)}
-          onMouseLeave={(e) => (e.target.style.background = "#ff5733")}
-        >
+        <a href="/AddRole" style={styles.buttonAdd}>
           Add New Role
         </a>
       </div>
 
       {/* Table Section */}
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.tableHeader}>ID</th>
-            <th style={styles.tableHeader}>Role Name</th>
-            <th style={styles.tableHeader}>Allowed Menus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {roles && roles.length > 0 ? (
-            roles.map((role) => (
-              <tr key={role.id}>
-                <td style={styles.tableCell}>{role.id}</td>
-                <td style={styles.tableCell}>{role.name}</td>
-                <td style={styles.tableCell}>
-                  {Array.isArray(role.allowedMenus) ?  role.allowedMenus.join(', ') : role.allowedMenus}
-                </td>
+      <div style={styles.card}>
+        <div style={styles.tableContainer}>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={styles.tableHeader}>ID</th>
+                <th style={styles.tableHeader}>Role Name</th>
+                <th style={styles.tableHeader}>Allowed Menus</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="3" style={styles.tableCell}>
-                No roles available.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {roles && roles.length > 0 ? (
+                roles.map((role) => (
+                  <tr key={role.id}>
+                    <td style={styles.tableCell}>{role.id}</td>
+                    <td style={styles.tableCell}>
+                      <span style={styles.roleBadge}>{role.name}</span>
+                    </td>
+                    <td style={styles.tableCell}>
+                      <div style={styles.menusList}>
+                        {Array.isArray(role.allowedMenus)
+                          ? role.allowedMenus.map((menu, index) => (
+                              <span key={index} style={styles.menuItem}>
+                                {menu}
+                              </span>
+                            ))
+                          : role.allowedMenus.split(',').map((menu, index) => (
+                              <span key={index} style={styles.menuItem}>
+                                {menu}
+                              </span>
+                            ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" style={styles.tableCell}>
+                    No roles available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
 
 const styles = {
   container: {
-    fontFamily: "'Poppins', sans-serif",
-    backgroundColor: "#f0f0f0",
-    color: "#333",
+    fontFamily: "'Inter', sans-serif",
+    backgroundColor: "#f4f6f8",
+    color: "#1a1a1a",
     lineHeight: "1.6",
-    paddingBottom: "40px",
+    minHeight: "100vh",
+    padding: "2rem",
   },
   header: {
-    background: "linear-gradient(to right, #0056b3, #004494)",
-    color: "white",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     padding: "2rem 0",
-    textAlign: "center",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+    marginBottom: "2rem",
+    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+  },
+  headerContent: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "0 2rem",
   },
   headerText: {
-    fontSize: "2.5rem",
-    marginBottom: "10px",
-  },
-  backButtonContainer: {
-    textAlign: "center",
-    margin: "20px",
-  },
-  button: {
-    padding: "10px 15px",
-    background: "#ff5733",
+    fontSize: "2rem",
     color: "white",
-    border: "none",
-    borderRadius: "5px",
+    fontWeight: "600",
+    textShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  },
+  buttonGroup: {
+    display: "flex",
+    gap: "1rem",
+    marginBottom: "2rem",
+    flexWrap: "wrap",
+  },
+  buttonBack: {
+    backgroundColor: "#64748b",
+    color: "white",
+    padding: "0.75rem 1.5rem",
+    borderRadius: "0.5rem",
+    fontWeight: "500",
     textDecoration: "none",
-    fontSize: "1rem",
-    transition: "background 0.3s",
     cursor: "pointer",
-    margin: "0 10px",
+    transition: "background-color 0.3s",
   },
-  buttonHover: {
-    background: "#ff6f4f",
-  },
-  backButton: {
-    textDecoration: "none",
-    background: "#0056b3",
+  buttonAdd: {
+    backgroundColor: "#2563eb",
     color: "white",
-    padding: "10px 15px",
-    borderRadius: "5px",
-    transition: "background 0.3s",
+    padding: "0.75rem 1.5rem",
+    borderRadius: "0.5rem",
+    fontWeight: "500",
+    textDecoration: "none",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
   },
-  backButtonHover: {
-    background: "#004494",
+  card: {
+    backgroundColor: "white",
+    borderRadius: "1rem",
+    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+    padding: "2rem",
+  },
+  tableContainer: {
+    overflowX: "auto",
   },
   table: {
-    width: "90%",
-    margin: "40px auto",
+    width: "100%",
     borderCollapse: "collapse",
-    background: "white",
-    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-    textAlign: "center",
-  },
-  tableCell: {
-    padding: "15px",  
-    fontSize: "1rem",
+    whiteSpace: "nowrap",
   },
   tableHeader: {
-    backgroundColor: "#004494",
-    color: "white",
-    padding: "15px",
+    backgroundColor: "#f8fafc",
+    color: "#64748b",
+    fontWeight: "600",
     textTransform: "uppercase",
+    fontSize: "0.75rem",
+    letterSpacing: "0.05em",
+    padding: "1rem",
+    textAlign: "left",
+    borderBottom: "2px solid #e2e8f0",
+  },
+  tableCell: {
+    padding: "1rem",
+    borderBottom: "1px solid #e2e8f0",
+    color: "#1e293b",
+  },
+  roleBadge: {
+    display: "inline-block",
+    padding: "0.25rem 0.75rem",
+    backgroundColor: "#e0e7ff",
+    color: "#4338ca",
+    borderRadius: "9999px",
+    fontSize: "0.875rem",
+    fontWeight: "500",
+  },
+  menusList: {
+    display: "flex",
+    gap: "0.5rem",
+    flexWrap: "wrap",
+  },
+  menuItem: {
+    backgroundColor: "#f1f5f9",
+    padding: "0.25rem 0.75rem",
+    borderRadius: "0.25rem",
+    fontSize: "0.875rem",
+    color: "#475569",
   },
 };
 

@@ -27,7 +27,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8083/reset-password", {
+      const response = await fetch("https://backendapprication-8eeb6fd4c701.herokuapp.com/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, newPassword }),

@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddRole = ({ onSubmit, errorMessage }) => {
-
   const [formData, setFormData] = useState({
     name: '',
     allowedMenus: ''
   });
 
-  // Inline CSS
+  // Updated inline CSS for the new design
   const styles = {
     container: {
       fontFamily: "'Poppins', sans-serif",
-      backgroundColor: "#f0f0f0",
-      color: "#333",
+      backgroundColor: "#eaeaea",
+      color: "#444",
       lineHeight: "1.6",
       minHeight: "100vh",
-      paddingBottom: "40px"
+      padding: "0 10px"
     },
     header: {
-      background: "linear-gradient(to right, #0056b3, #004494)",
+      background: "linear-gradient(to right, #4caf50, #388e3c)",
       color: "white",
       padding: "2rem 0",
       textAlign: "center",
@@ -34,55 +33,62 @@ const AddRole = ({ onSubmit, errorMessage }) => {
       margin: "20px"
     },
     button: {
-      padding: "10px 15px",
-      background: "#ff5733",
+      padding: "12px",
+      background: "#ff5722",
       color: "white",
       border: "none",
       borderRadius: "5px",
-      textDecoration: "none",
       fontSize: "1rem",
+      textDecoration: "none",
+      margin: "0 10px",
       transition: "background 0.3s",
-      cursor: "pointer",
-      margin: "0 10px"
+      cursor: "pointer"
     },
     buttonHover: {
-      background: "#ff6f4f"
+      background: "#ff784e"
     },
     formContainer: {
       width: "90%",
       maxWidth: "600px",
       margin: "40px auto",
-      padding: "20px",
+      padding: "30px",
       background: "white",
-      borderRadius: "10px",
-      boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)"
+      borderRadius: "15px",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)"
     },
     formGroup: {
-      marginBottom: "15px"
+      marginBottom: "20px"
     },
     label: {
       display: "block",
-      marginBottom: "5px"
+      marginBottom: "5px",
+      fontWeight: "bold"
     },
     input: {
       width: "100%",
-      padding: "10px",
-      border: "1px solid #ddd",
-      borderRadius: "5px"
+      padding: "12px",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      fontSize: "1rem",
+      transition: "border-color 0.3s"
+    },
+    inputFocus: {
+      borderColor: "#4caf50",
+      outline: "none"
     },
     submitButton: {
-      background: "#0056b3",
+      padding: "12px",
+      background: "#4caf50",
       color: "white",
-      padding: "10px",
       border: "none",
       borderRadius: "5px",
-      cursor: "pointer",
       fontSize: "1rem",
       transition: "background 0.3s",
-      width: "100%"
+      width: "100%",
+      cursor: "pointer"
     },
     submitButtonHover: {
-      background: "#004494"
+      background: "#388e3c"
     },
     errorMessage: {
       color: "red",
@@ -90,6 +96,7 @@ const AddRole = ({ onSubmit, errorMessage }) => {
       marginBottom: "20px"
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -97,16 +104,17 @@ const AddRole = ({ onSubmit, errorMessage }) => {
       [name]: value
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const roleData = {
       name: formData.name,
-      allowedMenus: formData.allowedMenus.split(',') 
+      allowedMenus: formData.allowedMenus.split(',')
     };
 
     try {
-      const response = await axios.post('http://localhost:8083/roles', roleData);
+      const response = await axios.post('https://backendapprication-8eeb6fd4c701.herokuapp.com/roles', roleData);
       alert('Role added successfully!');
       if (onSubmit) onSubmit(response.data);
     } catch (error) {
@@ -117,25 +125,24 @@ const AddRole = ({ onSubmit, errorMessage }) => {
 
   return (
     <div style={styles.container}>
-
       <header style={styles.header}>
         <h1 style={styles.headerText}>Add New Role</h1>
       </header>
 
       <div style={styles.buttonContainer}>
         <a
-          href="/AdminDaschboard"
+          href="/AdminDashboard"
           style={styles.button}
           onMouseEnter={(e) => (e.target.style.background = styles.buttonHover.background)}
-          onMouseLeave={(e) => (e.target.style.background = "#ff5733")}
+          onMouseLeave={(e) => (e.target.style.background = "#ff5722")}
         >
-          Back Dashboard
+          Back to Dashboard
         </a>
         <a
           href="/Role-List"
           style={styles.button}
           onMouseEnter={(e) => (e.target.style.background = styles.buttonHover.background)}
-          onMouseLeave={(e) => (e.target.style.background = "#ff5733")}
+          onMouseLeave={(e) => (e.target.style.background = "#ff5722")}
         >
           View All Roles
         </a>
@@ -154,6 +161,8 @@ const AddRole = ({ onSubmit, errorMessage }) => {
               onChange={handleChange}
               style={styles.input}
               required
+              onFocus={(e) => (e.target.style.borderColor = styles.inputFocus.borderColor)}
+              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
             />
           </div>
           <div style={styles.formGroup}>
@@ -166,13 +175,15 @@ const AddRole = ({ onSubmit, errorMessage }) => {
               onChange={handleChange}
               style={styles.input}
               placeholder="Menu1, Menu2"
+              onFocus={(e) => (e.target.style.borderColor = styles.inputFocus.borderColor)}
+              onBlur={(e) => (e.target.style.borderColor = "#ccc")}
             />
           </div>
           <button
             type="submit"
             style={styles.submitButton}
             onMouseEnter={(e) => (e.target.style.background = styles.submitButtonHover.background)}
-            onMouseLeave={(e) => (e.target.style.background = "#0056b3")}
+            onMouseLeave={(e) => (e.target.style.background = "#4caf50")}
           >
             Add Role
           </button>

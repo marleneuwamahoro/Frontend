@@ -8,7 +8,7 @@ const UserDashboard = ({ firstname, lastname, username }) => {
   // Fetch allowedMenus from localStorage when the component mounts
   useEffect(() => {
     const menus = JSON.parse(localStorage.getItem('allowedMenus'));
-    const role= localStorage.getItem('role');
+    const role = localStorage.getItem('role');
     setRole(role);
     if (menus) {
       setAllowedMenus(menus);
@@ -18,47 +18,46 @@ const UserDashboard = ({ firstname, lastname, username }) => {
   return (
     <>
       {/* Header Section */}
-      <header className="text-white text-center p-4" style={{ background: "linear-gradient(to right, #0056b3, #004494)" }}>
-        <h1>User Dashboard</h1>
-        <p>Welcome to your personalized dashboard</p>
+      <header className="bg-primary text-white py-5 text-center">
+        <h1 className="display-4">Welcome to Your Dashboard</h1>
+        <p className="lead">Hello {firstname} {lastname}, you're logged in as {role}.</p>
       </header>
 
       {/* Dashboard Container */}
-      <div className="container text-center mt-4 p-4 bg-white shadow rounded">
-        <p className="welcome-msg text-primary" style={{ fontSize: "1.8rem" }}>
-          Hello, {firstname} {lastname}!
-        </p>
-        <p className="info" style={{fontSize:24}}>
-          You are logged in as <strong style={{fontSize:30,color: "green"}}>{role}</strong>.
-        </p>
-
-        {/* User Menu */}
-        <div className="user-menu">
-          <h2>
-            <span className="text-primary fw-bold">{role}</span>'s Menu
-          </h2>
-          <br />
-          <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
-            {allowedMenus && allowedMenus.length > 0 ? (
-              allowedMenus.map((menu, index) => (
-                <a
-                  key={index}
-                  href={`/${menu.toLowerCase().replace(" ", "-")}`}
-                  className="btn btn-primary"
-                >
-                  {menu}
-                </a>
-              ))
-            ) : (
-              <p>No menus available.</p>
-            )}
-          </ul>
+      <div className="container my-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <div className="card shadow-sm border-0">
+              <div className="card-header bg-primary text-white">
+                <h2 className="h4 m-0">{role}'s Menu</h2>
+              </div>
+              <div className="card-body">
+                <p className="fs-5 mb-4">Explore the options available to you:</p>
+                {/* User Menu */}
+                <div className="d-flex flex-wrap gap-3 justify-content-start">
+                  {allowedMenus && allowedMenus.length > 0 ? (
+                    allowedMenus.map((menu, index) => (
+                      <a
+                        key={index}
+                        href={`/${menu.toLowerCase().replace(" ", "-")}`}
+                        className="btn btn-outline-primary btn-lg"
+                      >
+                        {menu}
+                      </a>
+                    ))
+                  ) : (
+                    <p>No menus available.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Logout Section */}
-      <div className="text-end mt-3 me-4">
-        <a href="/login" className="btn btn-danger text-uppercase">
+      <div className="d-flex justify-content-center my-4">
+        <a href="/login" className="btn btn-danger btn-lg text-uppercase fw-bold">
           Logout
         </a>
       </div>

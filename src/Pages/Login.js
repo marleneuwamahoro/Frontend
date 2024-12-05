@@ -91,13 +91,14 @@ function Login() {
         };
 
         try {
-            const response = await fetch('http://localhost:8083/login', {
+            const response = await fetch('https://backendapprication-8eeb6fd4c701.herokuapp.com/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams(loginData),
+                body: JSON.stringify(loginData),
             });
+            
 
             if (response.ok) {
                 const data = await response.json();
