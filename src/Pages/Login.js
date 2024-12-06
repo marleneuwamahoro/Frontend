@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();  // useNavigate hook
 
     const styles = {
         container: {
@@ -106,9 +108,9 @@ function Login() {
                 localStorage.setItem('allowedMenus', JSON.stringify(data.allowedMenus));
 
                 if (data.role === 'administrator') {
-                    window.location.href = '/AdminDashboard';
+                    navigate('/AdminDashboard');  // Use navigate for redirection
                 } else if (['Customer', 'accountant', 'Manager'].includes(data.role)) {
-                    window.location.href = '/UserDashboard';
+                    navigate('/UserDashboard');  // Use navigate for redirection
                 }
             } else {
                 const errorData = await response.json();
