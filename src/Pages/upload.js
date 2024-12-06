@@ -129,7 +129,7 @@ const UploadResume = () => {
 
       {/* Back to Dashboard Button */}
       <div className="text-center mt-4">
-        <Link to="/AdminDaschboard" className="btn btn-warning">
+        <Link to="/AdminDashboard" className="btn btn-warning">
           Back to Dashboard
         </Link>
       </div>
