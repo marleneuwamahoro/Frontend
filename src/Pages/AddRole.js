@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AddRole = ({ onSubmit, errorMessage }) => {
   const [formData, setFormData] = useState({
@@ -45,12 +46,12 @@ const AddRole = ({ onSubmit, errorMessage }) => {
 
       {/* Buttons */}
       <div className="text-center my-3">
-        <a href="/AdminDashboard" className="btn btn-warning me-2">
+        <Link to="/AdminDashboard" className="btn btn-warning me-2">
           Back to Dashboard
-        </a>
-        <a href="/Role-List" className="btn btn-warning">
+        </Link>
+        <Link to="/Role-List" className="btn btn-warning">
           View All Roles
-        </a>
+        </Link>
       </div>
 
       {/* Form Container */}
