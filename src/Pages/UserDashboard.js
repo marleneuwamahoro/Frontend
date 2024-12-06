@@ -58,9 +58,6 @@ const UserDashboard = ({ firstname, lastname, username }) => {
 
       {/* Logout Section */}
       <div className="d-flex justify-content-center my-4">
-        <a href="/login" className="btn btn-danger btn-lg text-uppercase fw-bold">
-          Logout
-        </a>
         <Link to="/login" className="btn btn-danger btn-lg text-uppercase fw-bold">
           Logout
         </Link>
