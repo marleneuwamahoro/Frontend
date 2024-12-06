@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const RoleListPage = () => {
   const [roles, setRoles] = useState([]); // To hold roles data
@@ -10,11 +11,13 @@ const RoleListPage = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('https://backendapprication-8eeb6fd4c701.herokuapp.com/roles'); // Assuming your API endpoint is /api/roles
+        const response = await axios.get(
+          "https://backendapprication-8eeb6fd4c701.herokuapp.com/roles"
+        ); // Assuming your API endpoint is /roles
         setRoles(response.data);
         setLoading(false);
       } catch (error) {
-        setError('Error fetching roles');
+        setError("Error fetching roles");
         setLoading(false);
       }
     };
@@ -41,12 +44,12 @@ const RoleListPage = () => {
 
       {/* Button Group */}
       <div style={styles.buttonGroup}>
-        <a href="/AdminDaschboard" style={styles.buttonBack}>
+        <Link to="/AdminDaschboard" style={styles.buttonBack}>
           Back to Dashboard
-        </a>
-        <a href="/AddRole" style={styles.buttonAdd}>
+        </Link>
+        <Link to="/AddRole" style={styles.buttonAdd}>
           Add New Role
-        </a>
+        </Link>
       </div>
 
       {/* Table Section */}
@@ -76,7 +79,7 @@ const RoleListPage = () => {
                                 {menu}
                               </span>
                             ))
-                          : role.allowedMenus.split(',').map((menu, index) => (
+                          : role.allowedMenus.split(",").map((menu, index) => (
                               <span key={index} style={styles.menuItem}>
                                 {menu}
                               </span>

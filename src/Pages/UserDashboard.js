@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const UserDashboard = ({ firstname, lastname, username }) => {
   const [allowedMenus, setAllowedMenus] = useState([]);
@@ -60,7 +61,11 @@ const UserDashboard = ({ firstname, lastname, username }) => {
         <a href="/login" className="btn btn-danger btn-lg text-uppercase fw-bold">
           Logout
         </a>
+        <Link to="/login" className="btn btn-danger btn-lg text-uppercase fw-bold">
+          Logout
+        </Link>
       </div>
+
     </>
   );
 };

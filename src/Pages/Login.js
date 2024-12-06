@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -82,8 +83,8 @@ function Login() {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true); // Show loading indicator
-        setErrorMessage(''); // Reset error message
+        setIsLoading(true);
+        setErrorMessage('');
 
         const loginData = {
             email,
@@ -98,18 +99,15 @@ function Login() {
                 },
                 body: JSON.stringify(loginData),
             });
-            
 
             if (response.ok) {
                 const data = await response.json();
-                // Handle successful login, save data (e.g., role, allowedMenus) in localStorage
                 localStorage.setItem('role', data.role);
-                localStorage.setItem('allowedMenus', JSON.stringify(data.allowedMenus))
+                localStorage.setItem('allowedMenus', JSON.stringify(data.allowedMenus));
 
-                // Redirect based on role
                 if (data.role === 'administrator') {
-                    window.location.href = '/AdminDaschboard';
-                } else if (data.role === 'Customer' || data.role === 'accountant' || data.role === 'Manager') {
+                    window.location.href = '/AdminDashboard';
+                } else if (['Customer', 'accountant', 'Manager'].includes(data.role)) {
                     window.location.href = '/UserDashboard';
                 }
             } else {
@@ -120,7 +118,7 @@ function Login() {
             console.error('Error during login:', error);
             setErrorMessage('Something went wrong. Please try again.');
         } finally {
-            setIsLoading(false); // Hide loading indicator
+            setIsLoading(false);
         }
     };
 
@@ -179,35 +177,35 @@ function Login() {
                 <div style={styles.backToHome}>
                     <p>
                         Don't have an account?{' '}
-                        <a
-                            href="/signup"
+                        <Link
+                            to="/signup"
                             style={styles.link}
                             onMouseOver={(e) => (e.target.style.color = styles.linkHover.color)}
                             onMouseOut={(e) => (e.target.style.color = styles.link.color)}
                         >
                             Sign Up
-                        </a>
+                        </Link>
                     </p>
                     <p>
-                        <a
-                            href="/"
+                        <Link
+                            to="/"
                             style={styles.link}
                             onMouseOver={(e) => (e.target.style.color = styles.linkHover.color)}
                             onMouseOut={(e) => (e.target.style.color = styles.link.color)}
                         >
                             Back to Home
-                        </a>
+                        </Link>
                     </p>
                 </div>
                 <p style={styles.forgotPassword}>
-                    <a
-                        href="/ForgetPassword"
+                    <Link
+                        to="/ForgetPassword"
                         style={styles.link}
                         onMouseOver={(e) => (e.target.style.color = styles.linkHover.color)}
                         onMouseOut={(e) => (e.target.style.color = styles.link.color)}
                     >
                         Forgot Password?
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const EditUser = ({ user, roles }) => {
   return (
@@ -137,9 +138,9 @@ const EditUser = ({ user, roles }) => {
               <button type="submit" className="btn btn-primary w-50">
                 Save Changes
               </button>
-              <a href="/AdminDashboard" className="btn btn-secondary w-50 ms-2">
+              <Link to="/AdminDashboard" className="btn btn-secondary w-50 ms-2">
                 Cancel
-              </a>
+              </Link>
             </div>
           </form>
         </div>
@@ -147,9 +148,9 @@ const EditUser = ({ user, roles }) => {
 
       {/* Back to Dashboard Link */}
       <div className="text-center mt-3">
-        <a href="/AdminDashboard" className="text-primary text-decoration-none">
+        <Link to="/AdminDashboard" className="text-primary text-decoration-none">
           Back to Dashboard
-        </a>
+        </Link>
       </div>
     </div>
   );
