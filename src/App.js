@@ -23,7 +23,7 @@ function App() {
           <Route path="/UserDashboard" element={<UserDashboard />} />
           <Route path="/Role-List" element={<RoleList />} />
           <Route path="/AddRole" element={<AddRole />} />
-          <Route path="/AdminDaschboard" element={<AdminDashboard />} />
+          <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/Upload" element={<UploadResume />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
           <Route path="/ForgetPassword" element={<ForgotPassword />} />
